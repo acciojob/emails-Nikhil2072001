@@ -1,18 +1,31 @@
 package com.driver;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 
 public class Gmail extends Email {
-
+TreeMap<Date,String> map = new TreeMap<>();
+Stack<Date> st = new Stack<>();
     int inboxCapacity; //maximum number of mails inbox can store
     //Inbox: Stores mails. Each mail has date (Date), sender (String), message (String). It is guaranteed that message is distinct for all mails.
     //Trash: Stores mails. Each mail has date (Date), sender (String), message (String)
     public Gmail(String emailId, int inboxCapacity) {
-
+super(emailId);
+this.inboxCapacity=inboxCapacity;
     }
 
     public void receiveMail(Date date, String sender, String message){
+        int inboxSize = getInboxSize();
+        if(inboxSize<inboxCapacity){
+            map.put(date,message);
+        }else{
+            Date remove=date;
+            for(Date d : map.keySet()){
+                remove=d;
+                break;
+            }
+            map.remove(remove);
+            st.push(remove);
+        }
         // If the inbox is full, move the oldest mail in the inbox to trash and add the new mail to inbox.
         // It is guaranteed that:
         // 1. Each mail in the inbox is distinct.
@@ -23,43 +36,74 @@ public class Gmail extends Email {
     public void deleteMail(String message){
         // Each message is distinct
         // If the given message is found in any mail in the inbox, move the mail to trash, else do nothing
-
+for(Date d : map.keySet()){
+    if(map.get(d).equals(message)){
+        map.remove(d);
+        st.push(d);
+    }
+}
     }
 
     public String findLatestMessage(){
         // If the inbox is empty, return null
         // Else, return the message of the latest mail present in the inbox
-
+        int size = getInboxSize();
+        if(size==0)
+            return null;
+        String last ="";
+        for(Date d : map.keySet()){
+last = map.get(d);
+        }
+return last;
     }
 
     public String findOldestMessage(){
         // If the inbox is empty, return null
         // Else, return the message of the oldest mail present in the inbox
-
+        int size = getInboxSize();
+        if(size==0)
+            return null;
+        String last ="";
+        for(Date d : map.keySet()){
+            last = map.get(d);
+            break;
+        }
+        return last;
     }
 
     public int findMailsBetweenDates(Date start, Date end){
         //find number of mails in the inbox which are received between given dates
         //It is guaranteed that start date <= end date
-
+int total=0;
+for(Date d: map.keySet()){
+    if(d.compareTo(start)>=0 && d.compareTo(end)<=0)
+        total++;
+}
+return total;
     }
 
     public int getInboxSize(){
         // Return number of mails in inbox
-
+int size = map.size();
+return size;
     }
 
     public int getTrashSize(){
         // Return number of mails in Trash
-
+int size = st.size();
+return size;
     }
 
     public void emptyTrash(){
         // clear all mails in the trash
+int n = st.size();
+for(int i=0;i<n;i++)
+    st.pop();
 
     }
 
     public int getInboxCapacity() {
+        return inboxCapacity;
         // Return the maximum number of mails that can be stored in the inbox
     }
 }
