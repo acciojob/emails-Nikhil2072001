@@ -25,6 +25,7 @@ this.inboxCapacity=inboxCapacity;
             }
             map.remove(remove);
             st.push(remove);
+            map.put(date,message);
         }
         // If the inbox is full, move the oldest mail in the inbox to trash and add the new mail to inbox.
         // It is guaranteed that:
@@ -40,6 +41,7 @@ for(Date d : map.keySet()){
     if(map.get(d).equals(message)){
         map.remove(d);
         st.push(d);
+        break;
     }
 }
     }

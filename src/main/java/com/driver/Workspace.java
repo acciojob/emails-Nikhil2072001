@@ -27,14 +27,14 @@ this.calendar=new ArrayList<>();
         // 1. At a particular time, you can be present in at most one meeting
         // 2. If you want to attend a meeting, you must join it at its start time and leave at end time.
         // Example: If a meeting ends at 10:00 am, you cannot attend another meeting starting at 10:00 am
-int c=0;
+int c=1;
 Meeting temp = calendar.get(0);
 int n = calendar.size();
        // System.out.println(calendar.get(0).getEndTime());
-        for(int i=0;i<n-1;i++){
+   //     for(int i=0;i<n-1;i++){
             LocalTime start =calendar.get(0).getStartTime();
             LocalTime end = calendar.get(0).getEndTime();
-            for(int j=i+1;j<n;j++){
+            for(int j=1;j<n;j++){
                 if(
                         start.compareTo(calendar.get(j).getStartTime()) >0 && start.compareTo(calendar.get(j).getEndTime()) >0 &&end.compareTo(calendar.get(j).getStartTime()) > 0 && end.compareTo(calendar.get(j).getEndTime()) >0
                         || start.compareTo(calendar.get(j).getStartTime()) <0 && end.compareTo(calendar.get(j).getStartTime()) <0 &&start.compareTo(calendar.get(j).getEndTime()) < 0 && end.compareTo(calendar.get(j).getEndTime()) <0
@@ -43,7 +43,7 @@ int n = calendar.size();
                 }
 
             }
-        }
+      //  }
         return c;
     }
 }
