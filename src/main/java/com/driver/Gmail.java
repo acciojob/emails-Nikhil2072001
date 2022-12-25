@@ -59,10 +59,14 @@ this.inboxCapacity=inboxCapacity;
 //        break;
 //    }
 //}
-for(Pair p:list){
-    if(p.mssg.equals(message)){
-        list.remove(p);
-        st.push(p.d);
+        int size = getInboxSize();
+        if(size==0)
+            return;
+
+for(int i=0;i<list.size();i++){
+    if(list.get(i).mssg.equals(message)){
+        list.remove(i);
+        st.push(list.get(i).d);
         break;
     }
 }
