@@ -12,7 +12,7 @@ public class Main {
         email.changePassword("Accio@123", "V12@v123");
      //   email.changePassword("Accio@123", "V12@v123");
         Gmail gmail = new Gmail("accio@gmail.com", 3);
-       // System.out.println(gmail.getInboxCapacity());
+
         gmail.receiveMail(new SimpleDateFormat("dd/MM/yyyy").parse("21/12/2022"), "Tushar", "Assignment Completed?");
         gmail.receiveMail(new SimpleDateFormat("dd/MM/yyyy").parse("22/12/2022"), "Tushar", "We are running out of time.");
         gmail.receiveMail(new SimpleDateFormat("dd/MM/yyyy").parse("22/12/2022"), "Abhishek", "Assignment to be uploaded on database.");
@@ -20,10 +20,10 @@ public class Main {
 
         System.out.println("Total " + gmail.getInboxSize() + " mails in inbox.");
         System.out.println("There are " + gmail.findMailsBetweenDates(new SimpleDateFormat("dd/MM/yyyy").parse("21/12/2022"), new SimpleDateFormat("dd/MM/yyyy").parse("22/12/2022")) + " mails between given dates!");
-        System.out.println("There are " + gmail.getTrashSize() + " mails in the trash.");
+       // System.out.println("There are " + gmail.getTrashSize() + " mails in the trash.");
         gmail.deleteMail("Everything looks good.");
         System.out.println("The latest message is :" + gmail.findLatestMessage());
-        System.out.println("There are " + gmail.getTrashSize() + " mails in the trash.");
+    //    System.out.println("There are " + gmail.getTrashSize() + " mails in the trash.");
         gmail.deleteMail("Assignment to be uploaded on database.");
         System.out.println("There are " + gmail.getTrashSize() + " mails in the trash.");
         gmail.emptyTrash();

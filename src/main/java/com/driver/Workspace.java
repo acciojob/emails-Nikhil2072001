@@ -30,24 +30,7 @@ this.calendar=new ArrayList<>();
 //int c=1;
 
 int n = calendar.size();
-       // System.out.println(calendar.get(0).getEndTime());
-      // for(int i=0;i<n-1;i++){
-//            LocalTime start =calendar.get(0).getStartTime();
-//            LocalTime end = calendar.get(0).getEndTime();
-//            for(int j=1;j<n;j++){
-//                LocalTime start =calendar.get(j-1).getStartTime();
-//                LocalTime end = calendar.get(j-1).getEndTime();
-//                if(
-//                        start.compareTo(calendar.get(j).getStartTime()) >0 && start.compareTo(calendar.get(j).getEndTime()) >0 &&end.compareTo(calendar.get(j).getStartTime()) > 0 && end.compareTo(calendar.get(j).getEndTime()) >0
-//                        || start.compareTo(calendar.get(j).getStartTime()) <0 && end.compareTo(calendar.get(j).getStartTime()) <0 &&start.compareTo(calendar.get(j).getEndTime()) < 0 && end.compareTo(calendar.get(j).getEndTime()) <0
-//                ){
-//                    c++;
-//                }
-//
-//       //     }
-//        }
-//        return c;
-        // add your code here
+
         ArrayList<pair> list=new ArrayList<>();
         for(int i=0;i<n;i++)
         {
