@@ -3,8 +3,18 @@ package com.driver;
 import java.util.*;
 
 public class Gmail extends Email {
-TreeMap<Date,String> map = new TreeMap<>();
+//TreeMap<Date,String> map = new TreeMap<>();
 Stack<Date> st = new Stack<>();
+List<Pair> list = new ArrayList<>();
+class Pair{
+    Date d;
+    String mssg;
+    Pair(Date d,String mssg){
+        this.mssg=mssg;
+        this.d=d;
+
+    }
+}
     int inboxCapacity; //maximum number of mails inbox can store
     //Inbox: Stores mails. Each mail has date (Date), sender (String), message (String). It is guaranteed that message is distinct for all mails.
     //Trash: Stores mails. Each mail has date (Date), sender (String), message (String)
@@ -15,18 +25,22 @@ this.inboxCapacity=inboxCapacity;
 
     public void receiveMail(Date date, String sender, String message){
         int inboxSize = getInboxSize();
-        if(inboxSize<inboxCapacity){
-            map.put(date,message);
-        }else{
+        int capacity = getInboxCapacity();
+
+//        if(inboxSize<capacity){
+//            map.put(date,message);
+//        }else
+          if(inboxSize==capacity){
             Date remove=date;
-            for(Date d : map.keySet()){
-                remove=d;
-                break;
-            }
-            map.remove(remove);
+
+            list.remove(0);
+           // map.remove(remove);
+
             st.push(remove);
-            map.put(date,message);
+           // map.put(date,message);
         }
+          list.add(new Pair(date,message));
+      //  map.put(date,message);
         // If the inbox is full, move the oldest mail in the inbox to trash and add the new mail to inbox.
         // It is guaranteed that:
         // 1. Each mail in the inbox is distinct.
@@ -37,10 +51,18 @@ this.inboxCapacity=inboxCapacity;
     public void deleteMail(String message){
         // Each message is distinct
         // If the given message is found in any mail in the inbox, move the mail to trash, else do nothing
-for(Date d : map.keySet()){
-    if(map.get(d).equals(message)){
-        map.remove(d);
-        st.push(d);
+//for(Date d : map.keySet()){
+//    if(map.get(d).equals(message)){
+//        System.out.println("this is the deleted msg "+map.get(d));
+//        map.remove(d);
+//        st.push(d);
+//        break;
+//    }
+//}
+for(Pair p:list){
+    if(p.mssg.equals(message)){
+        list.remove(p);
+        st.push(p.d);
         break;
     }
 }
@@ -52,11 +74,12 @@ for(Date d : map.keySet()){
         int size = getInboxSize();
         if(size==0)
             return null;
-        String last ="";
-        for(Date d : map.keySet()){
-last = map.get(d);
-        }
-return last;
+//        String last ="";
+//        for(Date d : map.keySet()){
+//last = map.get(d);
+//        }
+        Pair p = list.get(list.size()-1);
+return p.mssg;
     }
 
     public String findOldestMessage(){
@@ -65,28 +88,33 @@ return last;
         int size = getInboxSize();
         if(size==0)
             return null;
-        String last ="";
-        for(Date d : map.keySet()){
-            last = map.get(d);
-            break;
-        }
-        return last;
+//        String last ="";
+//        for(Date d : map.keySet()){
+//            last = map.get(d);
+//            break;
+//        }
+        Pair p = list.get(0);
+        return p.mssg;
     }
 
     public int findMailsBetweenDates(Date start, Date end){
         //find number of mails in the inbox which are received between given dates
         //It is guaranteed that start date <= end date
 int total=0;
-for(Date d: map.keySet()){
-    if(d.compareTo(start)>=0 && d.compareTo(end)<=0)
-        total++;
-}
+//for(Date d: map.keySet()){
+//    if(d.compareTo(start)>=0 && d.compareTo(end)<=0)
+//        total++;
+//}
+        for(Pair p : list){
+            if(p.d.compareTo(start)>=0 && p.d.compareTo(end)<=0)
+                total++;
+        }
 return total;
     }
 
     public int getInboxSize(){
         // Return number of mails in inbox
-int size = map.size();
+int size = list.size();
 return size;
     }
 
@@ -105,7 +133,7 @@ for(int i=0;i<n;i++)
     }
 
     public int getInboxCapacity() {
-        return inboxCapacity;
+        return this.inboxCapacity;
         // Return the maximum number of mails that can be stored in the inbox
     }
 }
