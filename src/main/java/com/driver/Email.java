@@ -27,7 +27,7 @@ public class Email {
         // 4. It contains at least one digit
         // 5. It contains at least one special character. Any character apart from alphabets and digits is a special character
 
-        Pattern passwordRegex = Pattern.compile("((?=.[0-9])(?=.[a-z])(?=.[A-Z])(?=.[`~!@#$%^&*]).{8,20})");
+        Pattern passwordRegex = Pattern.compile("((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[`~!@#$%^&*]).{8,20})");
         Matcher m = passwordRegex.matcher(newPassword);
         if(oldPassword.equals(this.password) && m.matches()){
             this.password = newPassword;

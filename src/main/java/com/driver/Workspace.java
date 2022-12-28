@@ -11,10 +11,9 @@ public class Workspace extends Gmail{
     private ArrayList<Meeting> calendar; // Stores all the meetings
 
     public Workspace(String emailId) {
-
-        super(emailId, Integer.MAX_VALUE);
         // The inboxCapacity is equal to the maximum value an integer can store.
-this.calendar=new ArrayList<>();
+        super(emailId, Integer.MAX_VALUE);
+        this.calendar=new ArrayList<>();
     }
 
     public void addMeeting(Meeting meeting){
@@ -37,7 +36,7 @@ this.calendar=new ArrayList<>();
         LocalTime temp = list.get(0).end;
         for(int i=1; i<list.size(); i++){
             pair p = list.get(i);
-            if(p.strt.compareTo(temp) > 0){
+            if(p.start.compareTo(temp) > 0){
                 cnt++;
                 temp = p.end;
             }
@@ -45,17 +44,21 @@ this.calendar=new ArrayList<>();
         return cnt;
     }
 }
+
 class pair implements Comparable<pair>{
-    LocalTime strt;
-    LocalTime end;
-    public pair(LocalTime strt,LocalTime end) {
-        this.strt=strt;
-        this.end=end;
+    LocalTime start, end;
+
+    pair(LocalTime start, LocalTime end){
+        this.start = start;
+        this.end = end;
     }
-    public int compareTo(pair p)  {
-        if(this.end.compareTo(p.end)>0)
+
+    public  int compareTo(pair p){
+        if(this.end.compareTo(p.end) > 0){
             return 1;
-        else
+        }
+        else{
             return -1;
+        }
     }
 }
